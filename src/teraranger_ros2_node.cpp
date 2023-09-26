@@ -1,4 +1,3 @@
-#include <teraranger_ros2/teraranger_ros2_node.hpp>
 #include "serial_driver/serial_driver.hpp"
 #include <rclcpp/rclcpp.hpp>
 #include "sensor_msgs/msg/range.hpp"
