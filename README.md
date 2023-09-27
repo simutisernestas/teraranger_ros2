@@ -1,5 +1,7 @@
 # TeraRanger 40m ROS2 driver
 
+[![Build](https://github.com/simutisernestas/teraranger_ros2/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/simutisernestas/teraranger_ros2/actions/workflows/build.yml)
+
 This is a port of official driver https://github.com/Terabee/teraranger to ROS2. No other range sensor than 40m is supported yet.
 
 ## Setup
