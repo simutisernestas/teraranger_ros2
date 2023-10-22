@@ -115,17 +115,14 @@ void serial_port_callback(std::vector<uint8_t> &buffer, const size_t &bytes_tran
 
 int main(int argc, char **argv)
 {
-  // take device and baud rate from argv
-  if (argc < 2)
-  {
-    printf("Usage: %s <device>\n", argv[0]);
-    return 1;
-  }
-  const std::string device = argv[1];
   const uint32_t baud_rate = SERIAL_SPEED;
 
   rclcpp::init(argc, argv);
   auto node = std::make_shared<rclcpp::Node>("teraranger_ros2_node");
+
+  node->declare_parameter("portname", "/dev/ttyACM0");
+  rclcpp::Parameter port_param = node->get_parameter("portname");
+  const std::string device = port_param.as_string();;
 
   const size_t threads_count = 1;
   auto io_context = std::make_unique<drivers::common::IoContext>(threads_count);
@@ -155,8 +152,8 @@ int main(int argc, char **argv)
     msg.header.frame_id = "teraranger_evo_40m";
     msg.radiation_type = sensor_msgs::msg::Range::INFRARED;
     msg.field_of_view = FOV;
-    msg.min_range = EVO_40M_MIN * VALUE_TO_METER_FACTOR;
-    msg.max_range = EVO_40M_MAX * VALUE_TO_METER_FACTOR;
+    msg.min_range = EVO_40M_MIN;
+    msg.max_range = EVO_40M_MAX;
     msg.range = measured_range.load();
     range_pub->publish(msg); });
 
